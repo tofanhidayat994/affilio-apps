@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Affilio</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0B0F16">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Affilio">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{
+  --bg:#0B0F16; --surface:#151A2C; --surface2:#1D2440; --line:#2A3350;
+  --text:#EEF2F8; --muted:#8A93A6; --blue:#3B82F6; --purple:#8B5CF6; --pink:#EC4899; --cyan:#22D3EE; --green:#22C55E; --orange:#FF7A34; --red:#EF4444;
+  --grad-main:linear-gradient(135deg,var(--purple),var(--blue));
+  --grad-shopee:linear-gradient(135deg,#FFA94D,#FF5E7E);
+  --grad-tiktok:linear-gradient(135deg,#25F4EE,#111,#FE2C55);
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#F3F4F7; --surface:#FFFFFF; --surface2:#EEF0F4; --line:#E1E4EA; --text:#12151C; --muted:#6B7280;
+  }
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px); height:100%;}
+*{box-sizing:border-box;}
+body{margin:0; min-height:100%; background:var(--bg) radial-gradient(700px 300px at 50% -60px, rgba(139,92,246,.18), transparent); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; -webkit-font-smoothing:antialiased; padding-bottom:76px;}
+.topbar{position:sticky; top:0; z-index:5; background:rgba(11,15,22,.85); backdrop-filter:blur(8px); padding:calc(14px + env(safe-area-inset-top,0px)) 18px 10px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line);}
+.topbar h1{font-size:1.1rem; margin:0; font-weight:800; background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.gear{background:none; border:none; color:var(--muted); font-size:1.2rem; cursor:pointer; padding:4px;}
+main{max-width:520px; margin:0 auto; padding:14px 18px 20px;}
+.view{display:none;}
+.view.active{display:block;}
+.datebtn{width:100%; background:var(--surface); border:1px solid var(--line); color:var(--text); padding:11px 14px; border-radius:12px; font-size:.9rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
+.datebtn input[type=date]{background:transparent; border:none; color:var(--text); font-size:.9rem; width:100%;}
+.cards2{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;}
+.sumcard{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px; position:relative; overflow:hidden;}
+.sumcard::before{content:''; position:absolute; top:0; left:0; right:0; height:3px;}
+.sumcard.blue::before{background:var(--grad-main);}
+.sumcard.green::before{background:linear-gradient(90deg,var(--green),var(--cyan));}
+.sumcard .label{font-size:.74rem; color:var(--muted); margin-bottom:6px;}
+.sumcard .val{font-size:1.4rem; font-weight:800;}
+.sumcard .tgt{font-size:.7rem; color:var(--muted); margin:2px 0 8px;}
+.progress{height:6px; background:var(--surface2); border-radius:4px; overflow:hidden;}
+.progress .fill{height:100%; border-radius:4px;}
+.blue .fill{background:var(--grad-main);} .green .fill{background:linear-gradient(90deg,var(--green),var(--cyan));}
+h2.sec{font-size:.82rem; color:var(--muted); font-weight:650; margin:0 0 10px; text-transform:none;}
+.acctrow{display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin-bottom:10px; cursor:pointer;}
+.acctrow .ico{width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; color:#fff;}
+.ico.shopee{background:var(--grad-shopee); box-shadow:0 3px 10px rgba(255,94,126,.35);}
+.ico.tiktok{background:#0C0F14; border:1.5px solid transparent; background-image:linear-gradient(#0C0F14,#0C0F14),var(--grad-tiktok); background-origin:border-box; background-clip:padding-box, border-box; box-shadow:0 3px 10px rgba(37,244,238,.2);}
+.acctrow .info{flex:1; min-width:0;}
+.acctrow .info .nm{font-size:.9rem; font-weight:600;}
+.acctrow .info .meta{font-size:.74rem; color:var(--muted); display:flex; gap:14px; margin:2px 0 6px;}
+.acctrow .chev{color:var(--muted);}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;}
+.accbtn{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer;}
+.accbtn.sel{border-color:var(--purple); box-shadow:0 0 0 1px var(--purple) inset, 0 0 14px rgba(139,92,246,.35);}
+.accbtn .ico{width:30px; height:30px; border-radius:8px; font-size:.78rem; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; flex-shrink:0;}
+.accbtn .nm{font-size:.82rem; font-weight:600;}
+.field{margin-bottom:14px;}
+.field label{display:block; font-size:.78rem; color:var(--muted); margin-bottom:6px;}
+.field input, .field textarea{width:100%; background:var(--surface); border:1px solid var(--line); color:var(--text); padding:11px 13px; border-radius:12px; font-size:.9rem;}
+.field textarea{resize:vertical; min-height:64px;}
+.charcount{font-size:.68rem; color:var(--muted); text-align:right; margin-top:4px;}
+.btn-primary{width:100%; background:var(--grad-main); border:none; color:#fff; padding:13px; border-radius:12px; font-size:.92rem; font-weight:700; cursor:pointer; box-shadow:0 6px 16px rgba(139,92,246,.3);}
+.btn-primary:disabled{opacity:.6;}
+.savemsg{font-size:.76rem; color:var(--green); text-align:center; margin-top:8px; min-height:16px;}
+.segmented{display:flex; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:3px; margin-bottom:12px;}
+.segmented button{flex:1; background:none; border:none; color:var(--muted); padding:8px; border-radius:9px; font-size:.82rem; cursor:pointer;}
+.segmented button.on{background:var(--grad-main); color:#fff; font-weight:700;}
+table.hist{width:100%; border-collapse:collapse; font-size:.84rem;}
+table.hist th{text-align:left; color:var(--muted); font-weight:500; font-size:.72rem; padding:8px 6px; border-bottom:1px solid var(--line);}
+table.hist td{padding:10px 6px; border-bottom:1px solid var(--line);}
+table.hist tr:last-child td{border-bottom:none;}
+.trend{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:16px;}
+.bars{display:flex; align-items:flex-end; gap:6px; height:110px;}
+.bar{flex:1; display:flex; flex-direction:column; align-items:center; gap:5px; justify-content:flex-end; height:100%;}
+.bar .fill{width:100%; max-width:22px; background:linear-gradient(180deg,var(--cyan),var(--purple)); border-radius:5px 5px 2px 2px; min-height:2px;}
+.bar .d{font-size:.6rem; color:var(--muted);}
+.bignum{font-size:2rem; font-weight:800;}
+.chg{font-size:.8rem; margin:2px 0 16px;}
+.chg.up{color:var(--green);} .chg.down{color:var(--red);}
+.perfrow{margin-bottom:12px;}
+.perfrow .top{display:flex; justify-content:space-between; font-size:.82rem; margin-bottom:5px;}
+.perfrow .muted{color:var(--muted);}
+.status{font-size:.78rem; color:var(--muted); text-align:center; margin:6px 0 14px;}
+.bottomnav{position:fixed; bottom:0; left:0; right:0; background:rgba(21,26,44,.92); backdrop-filter:blur(8px); border-top:1px solid var(--line); display:flex; padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px)); z-index:5;}
+.bottomnav button{flex:1; background:none; border:none; color:var(--muted); font-size:.68rem; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; padding:4px; border-radius:10px;}
+.bottomnav button .em{font-size:1.15rem;}
+.bottomnav button.on{color:#fff; background:rgba(139,92,246,.18);}
+.bottomnav button.on .em{filter:drop-shadow(0 0 6px rgba(139,92,246,.6));}
+.modal-bg{display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:10; align-items:flex-end;}
+.modal-bg.show{display:flex;}
+.modal{background:var(--surface); border-radius:18px 18px 0 0; padding:18px; width:100%; max-width:520px; margin:0 auto; max-height:80vh; overflow-y:auto;}
+.modal h3{margin:0 0 14px; font-size:1rem;}
+.modal .close{float:right; background:none; border:none; color:var(--muted); font-size:1rem; cursor:pointer;}
+.setrow{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+.setrow .ico{width:30px; height:30px; border-radius:8px; font-size:.78rem; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; flex-shrink:0;}
+.setrow input{flex:1; background:var(--surface2); border:1px solid var(--line); color:var(--text); border-radius:9px; padding:8px 10px; font-size:.84rem;}
+.setrow .delbtn{background:none; border:none; color:var(--red); font-size:1rem; cursor:pointer; padding:2px 6px; flex-shrink:0;}
+.addacc{display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 18px;}
+.addacc input{flex:1; min-width:120px; background:var(--surface2); border:1px solid var(--line); color:var(--text); border-radius:9px; padding:9px 10px; font-size:.84rem;}
+.addacc button{width:100%; background:var(--grad-main); border:none; color:#fff; padding:10px; border-radius:9px; font-size:.84rem; font-weight:700; cursor:pointer;}
+.topbar .right{display:flex; align-items:center; gap:6px;}
+.syncbtn{position:relative; background:none; border:none; color:var(--muted); font-size:1.1rem; cursor:pointer; padding:4px; display:none;}
+.syncbtn.spin span.ic{display:inline-block; animation:spin 1s linear infinite;}
+@keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+.syncbtn .badge{position:absolute; top:-2px; right:-2px; background:var(--red); color:#fff; font-size:.6rem; font-weight:700; border-radius:8px; min-width:15px; height:15px; display:flex; align-items:center; justify-content:center; padding:0 3px;}
+.pendrow{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); font-size:.85rem;}
+.pendrow:last-child{border-bottom:none;}
+.pendrow .st{margin-left:auto; font-size:.72rem; color:var(--orange);}
+.empty{text-align:center; padding:32px 16px; color:var(--muted); background:var(--surface); border:1px dashed var(--line); border-radius:14px;}
+.empty .em{font-size:1.8rem; display:block; margin-bottom:8px;}
+.empty button{margin-top:12px; background:var(--grad-main); border:none; color:#fff; padding:9px 18px; border-radius:10px; font-size:.82rem; font-weight:650; cursor:pointer;}
+.miniinfo{display:flex; gap:16px; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px; margin-bottom:16px;}
+.miniinfo div{flex:1;}
+.miniinfo .lbl{font-size:.72rem; color:var(--muted);}
+.miniinfo .v{font-size:1rem; font-weight:650; margin-top:2px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1 id="topTitle">Dashboard</h1>
+  <div class="right">
+    <button class="syncbtn" id="syncBtn"><span class="ic">🔄</span><span class="badge" id="syncBadge">0</span></button>
+    <button class="gear" id="gearBtn">⚙</button>
+  </div>
+</div>
+
+<main>
+  <!-- DASHBOARD -->
+  <div class="view active" id="view-dashboard">
+    <button class="datebtn"><input type="date" id="dashDate"></button>
+    <div class="cards2">
+      <div class="sumcard blue">
+        <div class="label">Total Posting Hari Ini</div>
+        <div class="val" id="dashPosts">0</div>
+        <div class="tgt" id="dashPostsTgt">/ 0 target</div>
+        <div class="progress"><div class="fill" id="dashPostsFill" style="width:0%"></div></div>
+      </div>
+      <div class="sumcard green">
+        <div class="label">Total Komisi Hari Ini</div>
+        <div class="val" id="dashComm">Rp0</div>
+        <div class="tgt" id="dashCommTgt">/ Rp0 target</div>
+        <div class="progress"><div class="fill" id="dashCommFill" style="width:0%"></div></div>
+      </div>
+    </div>
+    <h2 class="sec" id="mtdLabel">Bulan Berjalan</h2>
+    <div class="cards2">
+      <div class="sumcard blue">
+        <div class="label">Total Posting</div>
+        <div class="val" id="mtdPosts">0</div>
+      </div>
+      <div class="sumcard green">
+        <div class="label">Total Komisi</div>
+        <div class="val" id="mtdComm">Rp0</div>
+      </div>
+    </div>
+    <h2 class="sec">Ringkasan Akun</h2>
+    <div id="dashAccList"></div>
+  </div>
+
+  <!-- INPUT -->
+  <div class="view" id="view-input">
+    <button class="datebtn"><input type="date" id="inputDate"></button>
+    <h2 class="sec">Pilih Akun</h2>
+    <div class="grid2" id="inputAccGrid"></div>
+    <div class="field"><label>Jumlah Posting</label><input type="number" id="inputPosts" min="0" step="1"></div>
+    <div class="field"><label>Komisi Hari Ini (Rp)</label><input type="number" id="inputComm" min="0" step="1000"></div>
+    <div class="field">
+      <label>Catatan (opsional)</label>
+      <textarea id="inputNote" maxlength="100" placeholder="Tulis catatan..."></textarea>
+      <div class="charcount"><span id="noteCount">0</span>/100</div>
+    </div>
+    <button class="btn-primary" id="inputSaveBtn">Simpan</button>
+    <div class="savemsg" id="inputMsg"></div>
+  </div>
+
+  <!-- RIWAYAT -->
+  <div class="view" id="view-riwayat">
+    <div class="segmented">
+      <button class="on" data-r="harian">Harian</button>
+      <button data-r="mingguan">Mingguan</button>
+      <button data-r="bulanan">Bulanan</button>
+    </div>
+    <div class="status" id="histStatus"></div>
+    <table class="hist"><thead><tr><th id="histCol1">Tanggal</th><th>Posting</th><th>Komisi</th></tr></thead>
+      <tbody id="histBody"></tbody>
+    </table>
+  </div>
+
+  <!-- ANALITIK -->
+  <div class="view" id="view-analitik">
+    <div class="segmented">
+      <button class="on" data-a="commission">Komisi</button>
+      <button data-a="posts">Posting</button>
+    </div>
+    <div class="status">30 hari terakhir</div>
+    <div class="bignum" id="anTotal">Rp0</div>
+    <div class="chg" id="anChg"></div>
+    <div class="trend"><div class="bars" id="anBars"></div></div>
+    <h2 class="sec">Performa Setiap Akun</h2>
+    <div id="anPerf"></div>
+  </div>
+</main>
+
+<!-- DETAIL AKUN MODAL -->
+<div class="modal-bg" id="detailModal">
+  <div class="modal">
+    <button class="close" id="detailClose">✕</button>
+    <h3 id="detailTitle">Akun</h3>
+    <div class="miniinfo">
+      <div><div class="lbl">Posting Hari Ini</div><div class="v" id="detPosts">0</div></div>
+      <div><div class="lbl">Komisi Hari Ini</div><div class="v" id="detComm">Rp0</div></div>
+    </div>
+    <h2 class="sec">Statistik 7 Hari Terakhir</h2>
+    <div class="trend"><div class="bars" id="detBars"></div></div>
+  </div>
+</div>
+
+<!-- SYNC STATUS MODAL -->
+<div class="modal-bg" id="syncModal">
+  <div class="modal">
+    <button class="close" id="syncClose">✕</button>
+    <h3>Status Penyimpanan</h3>
+    <div id="syncList"></div>
+    <button class="btn-primary" id="syncRetryBtn" style="margin-top:12px;">Coba Simpan Lagi</button>
+  </div>
+</div>
+
+<!-- PENGATURAN MODAL -->
+<div class="modal-bg" id="settingsModal">
+  <div class="modal">
+    <button class="close" id="settingsClose">✕</button>
+    <h3>Pengaturan</h3>
+    <h2 class="sec">Akun</h2>
+    <div id="setAccounts"></div>
+    <div class="addacc">
+      <input type="text" id="newAccName" placeholder="Nama Akun">
+      <input type="text" id="newAccType" list="platformList" placeholder="Jenis Akun (mis. Shopee)">
+      <datalist id="platformList">
+        <option value="Shopee"><option value="TikTok"><option value="Facebook">
+        <option value="Instagram"><option value="YouTube"><option value="Telegram">
+        <option value="WhatsApp"><option value="Twitter"><option value="Threads">
+        <option value="LinkedIn"><option value="Pinterest"><option value="Snapchat">
+        <option value="Lazada"><option value="Tokopedia"><option value="Bukalapak">
+        <option value="Blibli"><option value="Twitch"><option value="Lainnya">
+      </datalist>
+      <button id="addAccBtn">+ Tambah Akun</button>
+      <div style="flex-basis:100%; font-size:.68rem; color:var(--muted);">Logo otomatis mengikuti "Jenis Akun" yang diketik.</div>
+    </div>
+    <h2 class="sec">Target Harian</h2>
+    <div class="setrow"><label style="width:110px;font-size:.8rem;color:var(--muted)">Target Posting</label><input type="number" id="setTgtPosts"></div>
+    <div class="setrow"><label style="width:110px;font-size:.8rem;color:var(--muted)">Target Komisi</label><input type="number" id="setTgtComm"></div>
+    <button class="btn-primary" id="settingsSaveBtn">Simpan Pengaturan</button>
+    <div class="savemsg" id="settingsMsg"></div>
+  </div>
+</div>
+
+<div class="bottomnav">
+  <button class="on" data-tab="dashboard"><span class="em">🏠</span>Dashboard</button>
+  <button data-tab="input"><span class="em">📝</span>Input</button>
+  <button data-tab="riwayat"><span class="em">📋</span>Riwayat</button>
+  <button data-tab="analitik"><span class="em">📊</span>Analitik</button>
+</div>
+
+<script>
+const ACCOUNTS_VERSION = 4;
+const ACCOUNTS_DEFAULT = [];
+const TARGETS_DEFAULT = {posts:30, commission:750000};
+const AVATAR_COLORS = ['#3B82F6','#8B5CF6','#EC4899','#F59E0B','#22C55E','#22D3EE'];
+
+let accounts=ACCOUNTS_DEFAULT.map(a=>({...a})), targets={...TARGETS_DEFAULT};
+let selectedAccId=null;
+
+function fmtRp(n){ return 'Rp'+(Math.round(n||0)).toLocaleString('id-ID'); }
+function todayStr(d){ d=d||new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function addDays(dateStr,n){ const d=new Date(dateStr+'T00:00:00'); d.setDate(d.getDate()+n); return d; }
+function eid(date,accId){ return date+'__'+accId; }
+
+const LS_CONFIG = 'affilio_config';
+function lsKey(date,accId){ return 'affilio_entry_'+eid(date,accId); }
+
+async function initDb(){
+  try{
+    const raw = localStorage.getItem(LS_CONFIG);
+    if(raw){
+      const cd = JSON.parse(raw);
+      if(cd.version===ACCOUNTS_VERSION){
+        accounts = (cd.accounts||[]).map(a=>({...a}));
+        targets = cd.targets ? {...cd.targets} : {...TARGETS_DEFAULT};
+      } else { await saveConfig(); }
+    } else { await saveConfig(); }
+  }catch(e){}
+}
+async function saveConfig(){
+  try{ localStorage.setItem(LS_CONFIG, JSON.stringify({accounts,targets,version:ACCOUNTS_VERSION})); return true; }
+  catch(e){ return false; }
+}
+
+async function getEntry(date,accId){
+  try{
+    const raw = localStorage.getItem(lsKey(date,accId));
+    return raw ? JSON.parse(raw) : {posts:0,commission:0,note:''};
+  }catch(e){ return {posts:0,commission:0,note:''}; }
+}
+async function setEntry(date,accId,posts,commission,note){
+  const data={date,accountId:accId,posts,commission,note:note||''};
+  try{ localStorage.setItem(lsKey(date,accId), JSON.stringify(data)); return true; }
+  catch(e){ return false; }
+}
+async function totalsForDate(date){
+  let posts=0,commission=0;
+  const res = await Promise.all(accounts.map(a=>getEntry(date,a.id)));
+  res.forEach(e=>{posts+=e.posts||0; commission+=e.commission||0;});
+  return {posts,commission};
+}
+async function monthTotalsFor(date){
+  const d = new Date(date+'T00:00:00');
+  const days=[];
+  for(let day=1; day<=d.getDate(); day++) days.push(todayStr(new Date(d.getFullYear(),d.getMonth(),day)));
+  const results = await Promise.all(days.map(dt=>totalsForDate(dt)));
+  let posts=0,commission=0;
+  results.forEach(t=>{posts+=t.posts; commission+=t.commission;});
+  const label = '1–'+d.getDate()+' '+d.toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+  return {posts,commission,label};
+}
+
+function initials(name){ return (name||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
+function avatarColor(id){ let h=0; for(const c of id) h=(h*31+c.charCodeAt(0))>>>0; return AVATAR_COLORS[h%AVATAR_COLORS.length]; }
+
+const PLATFORMS = [
+  {key:'shopee', test:/shopee/i},
+  {key:'tiktok', test:/tiktok/i},
+  {key:'facebook', test:/(^|[^a-z])(facebook|fb)([^a-z]|$)/i, color:'#1877F2', glyph:'f'},
+  {key:'instagram', test:/(^|[^a-z])(instagram|ig)([^a-z]|$)/i, color:'linear-gradient(135deg,#F58529,#DD2A7B,#8134AF,#515BD4)', glyph:'IG'},
+  {key:'youtube', test:/(^|[^a-z])(youtube|yt)([^a-z]|$)/i, color:'#FF0000', glyph:'▶'},
+  {key:'telegram', test:/telegram/i, color:'#26A5E4', glyph:'✈'},
+  {key:'whatsapp', test:/(^|[^a-z])(whatsapp|wa)([^a-z]|$)/i, color:'#25D366', glyph:'●'},
+  {key:'twitter', test:/twitter/i, color:'#1D9BF0', glyph:'t'},
+  {key:'threads', test:/threads/i, color:'#000000', glyph:'@'},
+  {key:'linkedin', test:/linkedin/i, color:'#0A66C2', glyph:'in'},
+  {key:'pinterest', test:/pinterest/i, color:'#E60023', glyph:'P'},
+  {key:'snapchat', test:/snap/i, color:'#FFFC00', textColor:'#111', glyph:'S'},
+  {key:'lazada', test:/lazada/i, color:'#F57224', glyph:'L'},
+  {key:'tokopedia', test:/tokopedia|toped/i, color:'#42B549', glyph:'T'},
+  {key:'bukalapak', test:/bukalapak/i, color:'#E31E52', glyph:'B'},
+  {key:'blibli', test:/blibli/i, color:'#0072BC', glyph:'bl'},
+  {key:'twitch', test:/twitch/i, color:'#9146FF', glyph:'T'},
+];
+function detectPlatform(text){
+  const n = (text||'').toLowerCase();
+  for(const p of PLATFORMS){ if(p.test.test(n)) return p; }
+  return null;
+}
+function platformSourceText(a){ return a.type || a.group || ''; }
+function barColor(a){
+  const p = detectPlatform(platformSourceText(a));
+  if(p && p.key==='shopee') return 'var(--grad-shopee)';
+  if(p && p.key==='tiktok') return 'var(--grad-main)';
+  if(p) return p.color;
+  return avatarColor(a.id);
+}
+function iconHtml(a){
+  const p = detectPlatform(platformSourceText(a));
+  if(p && p.key==='shopee') return `<div class="ico shopee"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M5.5 8.5h13l-1.1 10.3a2 2 0 0 1-2 1.7H8.6a2 2 0 0 1-2-1.7L5.5 8.5z" fill="#fff"/><path d="M8.3 8.5a3.7 3.7 0 0 1 7.4 0" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round"/><text x="12" y="17" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8.5" font-weight="800" fill="#FF5E36">S</text></svg></div>`;
+  if(p && p.key==='tiktok') return `<div class="ico tiktok">♪</div>`;
+  if(p) return `<div class="ico" style="background:${p.color};color:${p.textColor||'#fff'}">${p.glyph}</div>`;
+  return `<div class="ico" style="background:${avatarColor(a.id)}">${initials(a.name)}</div>`;
+}
+
+// ---------- DASHBOARD ----------
+async function renderDashboard(){
+  const date = document.getElementById('dashDate').value;
+  const t = await totalsForDate(date);
+  document.getElementById('dashPosts').textContent = t.posts;
+  document.getElementById('dashPostsTgt').textContent = '/ '+targets.posts+' target';
+  document.getElementById('dashPostsFill').style.width = Math.min(100, Math.round(t.posts/Math.max(1,targets.posts)*100))+'%';
+  document.getElementById('dashComm').textContent = fmtRp(t.commission);
+  document.getElementById('dashCommTgt').textContent = '/ '+fmtRp(targets.commission)+' target';
+  document.getElementById('dashCommFill').style.width = Math.min(100, Math.round(t.commission/Math.max(1,targets.commission)*100))+'%';
+
+  const mt = await monthTotalsFor(date);
+  document.getElementById('mtdLabel').textContent = 'Bulan Berjalan ('+mt.label+')';
+  document.getElementById('mtdPosts').textContent = mt.posts;
+  document.getElementById('mtdComm').textContent = fmtRp(mt.commission);
+
+  const list = document.getElementById('dashAccList');
+  list.innerHTML='';
+  if(accounts.length===0){
+    list.innerHTML = `<div class="empty"><span class="em">🧾</span>Belum ada akun.<br>Tambahkan akun lewat ikon ⚙ di pojok atas.<button id="emptyAddBtn">+ Tambah Akun</button></div>`;
+    document.getElementById('emptyAddBtn').addEventListener('click', ()=>{ renderSettings(); document.getElementById('settingsModal').classList.add('show'); });
+    return;
+  }
+  for(const a of accounts){
+    const e = await getEntry(date,a.id);
+    const row = document.createElement('div');
+    row.className='acctrow'; row.dataset.acc=a.id;
+    row.innerHTML = `${iconHtml(a)}<div class="info"><div class="nm">${a.name}</div>
+      <div class="meta"><span>Posting: ${e.posts||0}</span><span>Komisi: ${fmtRp(e.commission||0)}</span></div>
+      <div class="progress"><div class="fill" style="width:${Math.min(100,Math.round((e.posts||0)/Math.max(1,10)*100))}%;background:${barColor(a)}"></div></div>
+      </div><div class="chev">›</div>`;
+    row.addEventListener('click', ()=>openDetail(a.id));
+    list.appendChild(row);
+  }
+}
+
+// ---------- DETAIL MODAL ----------
+async function openDetail(accId){
+  const a = accounts.find(x=>x.id===accId);
+  const date = document.getElementById('dashDate').value;
+  const e = await getEntry(date, accId);
+  document.getElementById('detailTitle').textContent = a.name;
+  document.getElementById('detPosts').textContent = e.posts||0;
+  document.getElementById('detComm').textContent = fmtRp(e.commission||0);
+  const bars = document.getElementById('detBars'); bars.innerHTML='';
+  const days=[]; for(let i=6;i>=0;i--) days.push(todayStr(addDays(date,-i)));
+  const vals = await Promise.all(days.map(d=>getEntry(d,accId)));
+  const comms = vals.map(v=>v.commission||0);
+  const max = Math.max(1,...comms);
+  days.forEach((d,i)=>{
+    const pct = Math.round(comms[i]/max*100);
+    const bar=document.createElement('div'); bar.className='bar';
+    bar.innerHTML = `<div class="fill" style="height:${pct}%"></div><div class="d">${d.slice(5).replace('-','/')}</div>`;
+    bars.appendChild(bar);
+  });
+  document.getElementById('detailModal').classList.add('show');
+}
+
+// ---------- INPUT ----------
+function renderInputAccGrid(){
+  const grid = document.getElementById('inputAccGrid'); grid.innerHTML='';
+  if(accounts.length===0){
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;"><span class="em">🧾</span>Belum ada akun.<br>Tambahkan lewat ikon ⚙ di pojok atas.<button id="emptyAddBtn2">+ Tambah Akun</button></div>`;
+    document.getElementById('emptyAddBtn2').addEventListener('click', ()=>{ renderSettings(); document.getElementById('settingsModal').classList.add('show'); });
+    return;
+  }
+  accounts.forEach(a=>{
+    const b=document.createElement('div');
+    b.className='accbtn'+(selectedAccId===a.id?' sel':'');
+    b.innerHTML = `${iconHtml(a)}<div class="nm">${a.name}</div>`;
+    b.addEventListener('click', async ()=>{ selectedAccId=a.id; renderInputAccGrid(); await loadInputFields(); });
+    grid.appendChild(b);
+  });
+}
+async function loadInputFields(){
+  if(!selectedAccId) return;
+  const date = document.getElementById('inputDate').value;
+  const e = await getEntry(date, selectedAccId);
+  document.getElementById('inputPosts').value = e.posts||'';
+  document.getElementById('inputComm').value = e.commission||'';
+  document.getElementById('inputNote').value = e.note||'';
+  document.getElementById('noteCount').textContent = (e.note||'').length;
+}
+async function saveInput(auto){
+  if(!selectedAccId) return;
+  const date = document.getElementById('inputDate').value;
+  const posts = parseInt(document.getElementById('inputPosts').value||'0',10)||0;
+  const commission = parseFloat(document.getElementById('inputComm').value||'0')||0;
+  const note = document.getElementById('inputNote').value;
+  await setEntry(date, selectedAccId, posts, commission, note);
+  const msg = document.getElementById('inputMsg');
+  msg.textContent = auto ? 'Tersimpan otomatis' : 'Laporan tersimpan';
+  setTimeout(()=>{msg.textContent='';}, 2500);
+}
+
+// ---------- RIWAYAT ----------
+let riwayatMode='harian';
+async function renderRiwayat(){
+  const status = document.getElementById('histStatus');
+  const body = document.getElementById('histBody');
+  const col1 = document.getElementById('histCol1');
+  body.innerHTML=''; status.textContent='Memuat...';
+  const today = todayStr();
+  if(riwayatMode==='harian'){
+    col1.textContent='Tanggal'; status.textContent='7 Hari Terakhir';
+    const days=[]; for(let i=0;i<7;i++) days.push(todayStr(addDays(today,-i)));
+    for(const d of days){
+      const t = await totalsForDate(d);
+      body.innerHTML += `<tr><td>${d}</td><td>${t.posts}</td><td>${fmtRp(t.commission)}</td></tr>`;
+    }
+  } else if(riwayatMode==='mingguan'){
+    col1.textContent='Minggu'; status.textContent='8 Minggu Terakhir';
+    for(let w=0; w<8; w++){
+      let posts=0, commission=0;
+      const start = addDays(today, -(w*7+6));
+      for(let i=0;i<7;i++){
+        const d = todayStr(addDays(todayStr(start), i));
+        const t = await totalsForDate(d);
+        posts+=t.posts; commission+=t.commission;
+      }
+      const label = todayStr(start).slice(5)+' s/d '+todayStr(addDays(todayStr(start),6)).slice(5);
+      body.innerHTML += `<tr><td>${label}</td><td>${posts}</td><td>${fmtRp(commission)}</td></tr>`;
+    }
+  } else {
+    col1.textContent='Bulan'; status.textContent='6 Bulan Terakhir';
+    const now = new Date();
+    for(let m=0; m<6; m++){
+      const d = new Date(now.getFullYear(), now.getMonth()-m, 1);
+      const daysInMonth = new Date(d.getFullYear(), d.getMonth()+1, 0).getDate();
+      const monthEnd = (m===0) ? now.getDate() : daysInMonth;
+      let posts=0, commission=0;
+      const dates=[];
+      for(let day=1; day<=monthEnd; day++){
+        dates.push(todayStr(new Date(d.getFullYear(),d.getMonth(),day)));
+      }
+      const results = await Promise.all(dates.map(dt=>totalsForDate(dt)));
+      results.forEach(t=>{posts+=t.posts; commission+=t.commission;});
+      const label = d.toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+      body.innerHTML += `<tr><td>${label}</td><td>${posts}</td><td>${fmtRp(commission)}</td></tr>`;
+    }
+  }
+  status.textContent = status.textContent.replace('Memuat...','') || status.textContent;
+}
+
+// ---------- ANALITIK ----------
+let anMetric='commission';
+async function renderAnalitik(){
+  const today = todayStr();
+  const days=[]; for(let i=13;i>=0;i--) days.push(todayStr(addDays(today,-i)));
+  const dayTotals = await Promise.all(days.map(d=>totalsForDate(d)));
+  const totalNow = dayTotals.reduce((s,t)=>s+(anMetric==='commission'?t.commission:t.posts),0);
+  document.getElementById('anTotal').textContent = anMetric==='commission' ? fmtRp(totalNow) : totalNow+' posting';
+
+  const prevDays=[]; for(let i=27;i>=14;i--) prevDays.push(todayStr(addDays(today,-i)));
+  const prevTotals = await Promise.all(prevDays.map(d=>totalsForDate(d)));
+  const totalPrev = prevTotals.reduce((s,t)=>s+(anMetric==='commission'?t.commission:t.posts),0);
+  const chg = document.getElementById('anChg');
+  if(totalPrev>0){
+    const pct = Math.round((totalNow-totalPrev)/totalPrev*100);
+    chg.textContent = (pct>=0?'▲ ':'▼ ')+Math.abs(pct)+'% dari 14 hari sebelumnya';
+    chg.className = 'chg '+(pct>=0?'up':'down');
+  } else { chg.textContent=''; }
+
+  const bars = document.getElementById('anBars'); bars.innerHTML='';
+  const vals = dayTotals.map(t=>anMetric==='commission'?t.commission:t.posts);
+  const max = Math.max(1,...vals);
+  days.forEach((d,i)=>{
+    const pct = Math.round(vals[i]/max*100);
+    const bar=document.createElement('div'); bar.className='bar';
+    bar.innerHTML = `<div class="fill" style="height:${pct}%"></div><div class="d">${d.slice(8)}</div>`;
+    bars.appendChild(bar);
+  });
+
+  const perf = document.getElementById('anPerf'); perf.innerHTML='';
+  const perAcc = {};
+  accounts.forEach(a=>perAcc[a.id]=0);
+  for(const d of days){
+    for(const a of accounts){
+      const e = await getEntry(d,a.id);
+      perAcc[a.id] += anMetric==='commission' ? (e.commission||0) : (e.posts||0);
+    }
+  }
+  const totalAll = Math.max(1, Object.values(perAcc).reduce((a,b)=>a+b,0));
+  accounts.slice().sort((a,b)=>perAcc[b.id]-perAcc[a.id]).forEach(a=>{
+    const v = perAcc[a.id];
+    const pct = Math.round(v/totalAll*100);
+    const row=document.createElement('div'); row.className='perfrow';
+    row.innerHTML = `<div class="top"><span>${a.name}</span><span class="muted">${anMetric==='commission'?fmtRp(v):v}</span></div>
+      <div class="progress"><div class="fill" style="width:${pct}%;background:${barColor(a)}"></div></div>`;
+    perf.appendChild(row);
+  });
+}
+
+// ---------- SETTINGS ----------
+function newId(){ return 'acc_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+let pendingQueue = []; // [{id,name}] accounts not yet confirmed saved
+
+function updateSyncUI(){
+  const btn = document.getElementById('syncBtn');
+  const badge = document.getElementById('syncBadge');
+  if(pendingQueue.length>0){
+    btn.style.display='flex'; btn.classList.add('spin');
+    badge.textContent = pendingQueue.length;
+  } else {
+    btn.classList.remove('spin'); btn.style.display='none';
+  }
+  const list = document.getElementById('syncList');
+  if(list){
+    list.innerHTML = pendingQueue.length
+      ? pendingQueue.map(p=>`<div class="pendrow"><span>${p.name}</span><span class="st">Menyimpan...</span></div>`).join('')
+      : `<div class="empty" style="padding:18px;"><span class="em">✅</span>Semua akun tersimpan.</div>`;
+  }
+}
+async function persistAccounts(){
+  const ok = await saveConfig();
+  if(ok){ pendingQueue = []; }
+  updateSyncUI();
+  return ok;
+}
+
+function renderSettings(){
+  const wrap = document.getElementById('setAccounts'); wrap.innerHTML='';
+  if(accounts.length===0){
+    wrap.innerHTML = `<div class="empty" style="padding:18px;"><span class="em">📭</span>Belum ada akun. Tambahkan di bawah.</div>`;
+  }
+  accounts.forEach(a=>{
+    const row=document.createElement('div'); row.className='setrow';
+    row.innerHTML = `${iconHtml(a)}<input value="${a.name}" data-acc="${a.id}"><button class="delbtn" data-del="${a.id}">✕</button>`;
+    wrap.appendChild(row);
+  });
+  document.querySelectorAll('[data-del]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(!confirm('Hapus akun ini? Riwayat data yang sudah tersimpan tidak akan ditampilkan lagi.')) return;
+      accounts = accounts.filter(a=>a.id!==btn.dataset.del);
+      pendingQueue = pendingQueue.filter(p=>p.id!==btn.dataset.del);
+      if(selectedAccId===btn.dataset.del) selectedAccId=null;
+      renderSettings();
+      renderDashboard();
+      updateSyncUI();
+      persistAccounts();
+    });
+  });
+  document.getElementById('setTgtPosts').value = targets.posts;
+  document.getElementById('setTgtComm').value = targets.commission;
+}
+function handleAddAccount(){
+  try{
+    const nameInp = document.getElementById('newAccName');
+    const typeInp = document.getElementById('newAccType');
+    const msg = document.getElementById('settingsMsg');
+    const name = nameInp.value.trim();
+    if(!name){
+      msg.style.color = 'var(--red)';
+      msg.textContent = 'Isi Nama Akun dulu ya';
+      setTimeout(()=>{msg.textContent=''; msg.style.color='';}, 2500);
+      nameInp.focus();
+      return;
+    }
+    const type = typeInp.value.trim();
+    const acc = {id:newId(), name, type};
+    accounts.push(acc);
+    pendingQueue.push({id:acc.id, name:acc.name});
+    nameInp.value=''; typeInp.value='';
+    nameInp.blur(); typeInp.blur();
+    renderSettings();
+    renderDashboard();
+    updateSyncUI();
+    persistAccounts();
+  }catch(err){
+    const msg = document.getElementById('settingsMsg');
+    msg.style.color = 'var(--red)';
+    msg.textContent = 'Gagal menambah akun: '+(err && err.message ? err.message : err);
+  }
+}
+async function saveSettings(){
+  document.querySelectorAll('#setAccounts input').forEach(inp=>{
+    const a = accounts.find(x=>x.id===inp.dataset.acc);
+    if(a) a.name = inp.value.trim()||a.name;
+  });
+  targets.posts = parseInt(document.getElementById('setTgtPosts').value||'0',10)||TARGETS_DEFAULT.posts;
+  targets.commission = parseFloat(document.getElementById('setTgtComm').value||'0')||TARGETS_DEFAULT.commission;
+  await persistAccounts();
+  document.getElementById('settingsMsg').textContent='Pengaturan tersimpan';
+  setTimeout(()=>document.getElementById('settingsMsg').textContent='',2000);
+  await renderDashboard(); renderInputAccGrid();
+}
+
+// ---------- NAV ----------
+const titles = {dashboard:'Dashboard', input:'Input Harian', riwayat:'Riwayat', analitik:'Analitik'};
+async function switchTab(tab){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+tab).classList.add('active');
+  document.querySelectorAll('.bottomnav button').forEach(b=>b.classList.toggle('on', b.dataset.tab===tab));
+  document.getElementById('topTitle').textContent = titles[tab];
+  if(tab==='dashboard') await renderDashboard();
+  if(tab==='input'){ if(!selectedAccId && accounts.length>0) selectedAccId=accounts[0].id; renderInputAccGrid(); await loadInputFields(); }
+  if(tab==='riwayat') await renderRiwayat();
+  if(tab==='analitik') await renderAnalitik();
+}
+
+async function main(){
+  await initDb();
+  const today = todayStr();
+  document.getElementById('dashDate').value = today;
+  document.getElementById('inputDate').value = today;
+
+  document.querySelectorAll('.bottomnav button').forEach(b=>b.addEventListener('click', ()=>switchTab(b.dataset.tab)));
+  document.getElementById('dashDate').addEventListener('change', renderDashboard);
+  document.getElementById('inputDate').addEventListener('change', loadInputFields);
+  document.getElementById('inputSaveBtn').addEventListener('click', ()=>saveInput(false));
+  ['inputPosts','inputComm'].forEach(id=>document.getElementById(id).addEventListener('change', ()=>saveInput(true)));
+  document.getElementById('inputNote').addEventListener('input', (e)=>{document.getElementById('noteCount').textContent=e.target.value.length;});
+  document.getElementById('inputNote').addEventListener('change', ()=>saveInput(true));
+
+  document.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click', async ()=>{
+    document.querySelectorAll('[data-r]').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    riwayatMode=b.dataset.r; await renderRiwayat();
+  }));
+  document.querySelectorAll('[data-a]').forEach(b=>b.addEventListener('click', async ()=>{
+    document.querySelectorAll('[data-a]').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    anMetric=b.dataset.a; await renderAnalitik();
+  }));
+
+  document.getElementById('detailClose').addEventListener('click', ()=>document.getElementById('detailModal').classList.remove('show'));
+  document.getElementById('detailModal').addEventListener('click', (e)=>{ if(e.target.id==='detailModal') e.currentTarget.classList.remove('show'); });
+
+  document.getElementById('gearBtn').addEventListener('click', ()=>{ renderSettings(); document.getElementById('settingsModal').classList.add('show'); });
+  document.getElementById('settingsClose').addEventListener('click', ()=>document.getElementById('settingsModal').classList.remove('show'));
+  document.getElementById('settingsModal').addEventListener('click', (e)=>{ if(e.target.id==='settingsModal') e.currentTarget.classList.remove('show'); });
+  document.getElementById('syncBtn').addEventListener('click', ()=>{ updateSyncUI(); document.getElementById('syncModal').classList.add('show'); });
+  document.getElementById('syncClose').addEventListener('click', ()=>document.getElementById('syncModal').classList.remove('show'));
+  document.getElementById('syncModal').addEventListener('click', (e)=>{ if(e.target.id==='syncModal') e.currentTarget.classList.remove('show'); });
+  document.getElementById('syncRetryBtn').addEventListener('click', persistAccounts);
+  document.getElementById('settingsSaveBtn').addEventListener('click', saveSettings);
+  document.getElementById('addAccBtn').addEventListener('click', handleAddAccount);
+  ['newAccName','newAccType'].forEach(id=>{
+    document.getElementById(id).addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); handleAddAccount(); } });
+    document.getElementById(id).addEventListener('focus', ()=>{
+      setTimeout(()=>{ document.getElementById('addAccBtn').scrollIntoView({block:'center', behavior:'smooth'}); }, 300);
+    });
+  });
+
+  await renderDashboard();
+}
+main();
+if('serviceWorker' in navigator){ window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
+</script>
+</body>
+</html>
