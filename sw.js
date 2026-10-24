@@ -1,4 +1,4 @@
-const CACHE = 'affilio-v2';
+const CACHE = 'affilio-v3';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {
@@ -13,15 +13,14 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
+// Network-first: kalau online selalu ambil versi terbaru, kalau offline pakai cache.
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.match(e.request).then((cached) => {
-      const network = fetch(e.request).then((res) => {
-        caches.open(CACHE).then((c) => c.put(e.request, res.clone()));
-        return res;
-      }).catch(() => cached);
-      return cached || network;
-    })
+    fetch(e.request).then((res) => {
+      const copy = res.clone();
+      caches.open(CACHE).then((c) => c.put(e.request, copy));
+      return res;
+    }).catch(() => caches.match(e.request))
   );
 });

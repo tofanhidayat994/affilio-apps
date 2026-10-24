@@ -30,7 +30,9 @@ html{scroll-padding-top:env(safe-area-inset-top,0px); height:100%;}
 *{box-sizing:border-box;}
 body{margin:0; min-height:100%; background:var(--bg) radial-gradient(700px 300px at 50% -60px, rgba(139,92,246,.18), transparent); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; -webkit-font-smoothing:antialiased; padding-bottom:76px;}
 .topbar{position:sticky; top:0; z-index:5; background:rgba(11,15,22,.85); backdrop-filter:blur(8px); padding:calc(14px + env(safe-area-inset-top,0px)) 18px 10px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line);}
-.topbar h1{font-size:1.1rem; margin:0; font-weight:800; background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.topbar .topleft{min-width:0; flex:1;}
+.topbar .greet{font-size:.76rem; color:var(--muted); line-height:1.2; margin-bottom:1px; white-space:nowrap;}
+.topbar h1{font-size:1.1rem; margin:0; font-weight:800; line-height:1.25; background:var(--grad-main); -webkit-background-clip:text; background-clip:text; color:transparent; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .gear{background:none; border:none; color:var(--muted); font-size:1.2rem; cursor:pointer; padding:4px;}
 main{max-width:520px; margin:0 auto; padding:14px 18px 20px;}
 .view{display:none;}
@@ -49,14 +51,24 @@ main{max-width:520px; margin:0 auto; padding:14px 18px 20px;}
 .progress .fill{height:100%; border-radius:4px;}
 .blue .fill{background:var(--grad-main);} .green .fill{background:linear-gradient(90deg,var(--green),var(--cyan));}
 h2.sec{font-size:.82rem; color:var(--muted); font-weight:650; margin:0 0 10px; text-transform:none;}
-.acctrow{display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin-bottom:10px; cursor:pointer;}
+.acctrow{display:flex; flex-direction:column; gap:10px; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin-bottom:10px; cursor:pointer;}
 .acctrow .ico{width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; color:#fff;}
 .ico.shopee{background:var(--grad-shopee); box-shadow:0 3px 10px rgba(255,94,126,.35);}
 .ico.tiktok{background:#0C0F14; border:1.5px solid transparent; background-image:linear-gradient(#0C0F14,#0C0F14),var(--grad-tiktok); background-origin:border-box; background-clip:padding-box, border-box; box-shadow:0 3px 10px rgba(37,244,238,.2);}
-.acctrow .info{flex:1; min-width:0;}
-.acctrow .info .nm{font-size:.9rem; font-weight:600;}
-.acctrow .info .meta{font-size:.74rem; color:var(--muted); display:flex; gap:14px; margin:2px 0 6px;}
-.acctrow .chev{color:var(--muted);}
+.acctrow .chev{color:var(--muted); margin-left:auto;}
+.acctrow .ahead{display:flex; align-items:center; gap:12px;}
+.acctrow .ahead .nm{font-size:.92rem; font-weight:650; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.acctrow .grp{display:flex; flex-direction:column; gap:6px;}
+.acctrow .gtag{align-self:flex-start; font-size:.64rem; font-weight:700; letter-spacing:.02em; color:var(--text); background:var(--surface2); border-radius:6px; padding:2px 8px;}
+.acctrow .grp.mtd .gtag{background:rgba(139,92,246,.2); color:#B49CFF; color:color-mix(in srgb, var(--purple) 55%, var(--text));}
+.acctrow .mrow{display:flex; align-items:center; gap:10px;}
+.acctrow .mlbl{width:50px; flex-shrink:0; font-size:.72rem; color:var(--muted);}
+.acctrow .mtrack{flex:1; height:10px; background:var(--surface2); border-radius:6px; overflow:hidden;}
+.acctrow .mfill{height:100%; border-radius:6px; transition:width .5s ease;}
+.acctrow .mfill.post{background:var(--grad-main);}
+.acctrow .mfill.comm{background:linear-gradient(90deg,var(--green),var(--cyan));}
+.acctrow .mval{min-width:84px; text-align:right; font-size:.8rem; font-weight:750; font-variant-numeric:tabular-nums;}
+.acctrow .mval.zero{color:var(--muted); font-weight:500;}
 .grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;}
 .accbtn{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer;}
 .accbtn.sel{border-color:var(--purple); box-shadow:0 0 0 1px var(--purple) inset, 0 0 14px rgba(139,92,246,.35);}
@@ -106,7 +118,7 @@ table.hist tr:last-child td{border-bottom:none;}
 .addacc{display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 18px;}
 .addacc input{flex:1; min-width:120px; background:var(--surface2); border:1px solid var(--line); color:var(--text); border-radius:9px; padding:9px 10px; font-size:.84rem;}
 .addacc button{width:100%; background:var(--grad-main); border:none; color:#fff; padding:10px; border-radius:9px; font-size:.84rem; font-weight:700; cursor:pointer;}
-.topbar .right{display:flex; align-items:center; gap:6px;}
+.topbar .right{display:flex; align-items:center; gap:6px; flex-shrink:0;}
 .syncbtn{position:relative; background:none; border:none; color:var(--muted); font-size:1.1rem; cursor:pointer; padding:4px; display:none;}
 .syncbtn.spin span.ic{display:inline-block; animation:spin 1s linear infinite;}
 @keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
@@ -126,7 +138,7 @@ table.hist tr:last-child td{border-bottom:none;}
 <body>
 
 <div class="topbar">
-  <h1 id="topTitle">Dashboard</h1>
+  <div class="topleft"><div class="greet" id="greetLine"></div><h1 id="topTitle">Dashboard</h1></div>
   <div class="right">
     <button class="syncbtn" id="syncBtn"><span class="ic">🔄</span><span class="badge" id="syncBadge">0</span></button>
     <button class="gear" id="gearBtn">⚙</button>
@@ -239,6 +251,8 @@ table.hist tr:last-child td{border-bottom:none;}
   <div class="modal">
     <button class="close" id="settingsClose">✕</button>
     <h3>Pengaturan</h3>
+    <h2 class="sec">Profil</h2>
+    <div class="setrow"><label style="width:110px;font-size:.8rem;color:var(--muted)">Nama Pengguna</label><input type="text" id="setUserName" maxlength="30" placeholder="Nama kamu"></div>
     <h2 class="sec">Akun</h2>
     <div id="setAccounts"></div>
     <div class="addacc">
@@ -277,6 +291,7 @@ const TARGETS_DEFAULT = {posts:30, commission:750000};
 const AVATAR_COLORS = ['#3B82F6','#8B5CF6','#EC4899','#F59E0B','#22C55E','#22D3EE'];
 
 let accounts=ACCOUNTS_DEFAULT.map(a=>({...a})), targets={...TARGETS_DEFAULT};
+let userName='', currentTab='dashboard';
 let selectedAccId=null;
 
 function fmtRp(n){ return 'Rp'+(Math.round(n||0)).toLocaleString('id-ID'); }
@@ -295,12 +310,13 @@ async function initDb(){
       if(cd.version===ACCOUNTS_VERSION){
         accounts = (cd.accounts||[]).map(a=>({...a}));
         targets = cd.targets ? {...cd.targets} : {...TARGETS_DEFAULT};
+        userName = cd.userName||'';
       } else { await saveConfig(); }
     } else { await saveConfig(); }
   }catch(e){}
 }
 async function saveConfig(){
-  try{ localStorage.setItem(LS_CONFIG, JSON.stringify({accounts,targets,version:ACCOUNTS_VERSION})); return true; }
+  try{ localStorage.setItem(LS_CONFIG, JSON.stringify({accounts,targets,userName,version:ACCOUNTS_VERSION})); return true; }
   catch(e){ return false; }
 }
 
@@ -330,6 +346,15 @@ async function monthTotalsFor(date){
   results.forEach(t=>{posts+=t.posts; commission+=t.commission;});
   const label = '1–'+d.getDate()+' '+d.toLocaleDateString('id-ID',{month:'long',year:'numeric'});
   return {posts,commission,label};
+}
+async function monthTotalsForAccount(date, accId){
+  const d = new Date(date+'T00:00:00');
+  const days=[];
+  for(let day=1; day<=d.getDate(); day++) days.push(todayStr(new Date(d.getFullYear(),d.getMonth(),day)));
+  const results = await Promise.all(days.map(dt=>getEntry(dt,accId)));
+  let posts=0,commission=0;
+  results.forEach(e=>{posts+=e.posts||0; commission+=e.commission||0;});
+  return {posts,commission};
 }
 
 function initials(name){ return (name||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
@@ -398,14 +423,35 @@ async function renderDashboard(){
     document.getElementById('emptyAddBtn').addEventListener('click', ()=>{ renderSettings(); document.getElementById('settingsModal').classList.add('show'); });
     return;
   }
-  for(const a of accounts){
-    const e = await getEntry(date,a.id);
+  const rows = await Promise.all(accounts.map(async a=>({
+    a,
+    e: await getEntry(date,a.id),
+    m: await monthTotalsForAccount(date,a.id)
+  })));
+  // Skala bar = dibandingkan dengan akun tertinggi pada ukuran yang sama
+  const mx = {
+    tp: Math.max(0,...rows.map(r=>r.e.posts||0)),
+    tc: Math.max(0,...rows.map(r=>r.e.commission||0)),
+    mp: Math.max(0,...rows.map(r=>r.m.posts||0)),
+    mc: Math.max(0,...rows.map(r=>r.m.commission||0)),
+  };
+  const barRow = (label,val,max,text,kind)=>{
+    val = val||0;
+    const w = max>0 ? Math.max(val>0?4:0, Math.round(val/max*100)) : 0;
+    return `<div class="mrow"><span class="mlbl">${label}</span><div class="mtrack"><div class="mfill ${kind}" style="width:${w}%"></div></div><span class="mval${val>0?'':' zero'}">${text}</span></div>`;
+  };
+  for(const {a,e,m} of rows){
     const row = document.createElement('div');
     row.className='acctrow'; row.dataset.acc=a.id;
-    row.innerHTML = `${iconHtml(a)}<div class="info"><div class="nm">${a.name}</div>
-      <div class="meta"><span>Posting: ${e.posts||0}</span><span>Komisi: ${fmtRp(e.commission||0)}</span></div>
-      <div class="progress"><div class="fill" style="width:${Math.min(100,Math.round((e.posts||0)/Math.max(1,10)*100))}%;background:${barColor(a)}"></div></div>
-      </div><div class="chev">›</div>`;
+    row.innerHTML = `<div class="ahead">${iconHtml(a)}<div class="nm">${a.name}</div><div class="chev">›</div></div>
+      <div class="grp"><div class="gtag">Hari ini</div>
+        ${barRow('Posting',e.posts,mx.tp,(e.posts||0),'post')}
+        ${barRow('Komisi',e.commission,mx.tc,fmtRp(e.commission||0),'comm')}
+      </div>
+      <div class="grp mtd"><div class="gtag">Bulan ini</div>
+        ${barRow('Posting',m.posts,mx.mp,m.posts,'post')}
+        ${barRow('Komisi',m.commission,mx.mc,fmtRp(m.commission),'comm')}
+      </div>`;
     row.addEventListener('click', ()=>openDetail(a.id));
     list.appendChild(row);
   }
@@ -617,6 +663,7 @@ function renderSettings(){
       persistAccounts();
     });
   });
+  document.getElementById('setUserName').value = userName;
   document.getElementById('setTgtPosts').value = targets.posts;
   document.getElementById('setTgtComm').value = targets.commission;
 }
@@ -654,6 +701,8 @@ async function saveSettings(){
     const a = accounts.find(x=>x.id===inp.dataset.acc);
     if(a) a.name = inp.value.trim()||a.name;
   });
+  userName = (document.getElementById('setUserName').value||'').trim();
+  updateTopbar();
   targets.posts = parseInt(document.getElementById('setTgtPosts').value||'0',10)||TARGETS_DEFAULT.posts;
   targets.commission = parseFloat(document.getElementById('setTgtComm').value||'0')||TARGETS_DEFAULT.commission;
   await persistAccounts();
@@ -663,12 +712,37 @@ async function saveSettings(){
 }
 
 // ---------- NAV ----------
+function greetingNow(){
+  const h = new Date().getHours();
+  if(h>=4 && h<11)  return {t:'Selamat pagi',  e:'🌅'};
+  if(h>=11 && h<15) return {t:'Selamat siang', e:'☀️'};
+  if(h>=15 && h<18) return {t:'Selamat sore',  e:'🌇'};
+  return {t:'Selamat malam', e:'🌙'};
+}
+function updateTopbar(){
+  const g = document.getElementById('greetLine'), t = document.getElementById('topTitle');
+  if(!g || !t) return;
+  if(currentTab==='dashboard'){
+    const gr = greetingNow();
+    g.textContent = gr.e+' '+gr.t+(userName?',':'');
+    g.style.display = 'block';
+    t.textContent = userName || 'Dashboard';
+  } else {
+    g.style.display = 'none';
+    t.textContent = titles[currentTab];
+  }
+}
+async function saveUserName(){
+  userName = (document.getElementById('setUserName').value||'').trim();
+  updateTopbar();
+  await persistAccounts();
+}
 const titles = {dashboard:'Dashboard', input:'Input Harian', riwayat:'Riwayat', analitik:'Analitik'};
 async function switchTab(tab){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+tab).classList.add('active');
   document.querySelectorAll('.bottomnav button').forEach(b=>b.classList.toggle('on', b.dataset.tab===tab));
-  document.getElementById('topTitle').textContent = titles[tab];
+  currentTab = tab; updateTopbar();
   if(tab==='dashboard') await renderDashboard();
   if(tab==='input'){ if(!selectedAccId && accounts.length>0) selectedAccId=accounts[0].id; renderInputAccGrid(); await loadInputFields(); }
   if(tab==='riwayat') await renderRiwayat();
@@ -677,6 +751,9 @@ async function switchTab(tab){
 
 async function main(){
   await initDb();
+  updateTopbar();
+  setInterval(updateTopbar, 60000);
+  document.addEventListener('visibilitychange', updateTopbar);
   const today = todayStr();
   document.getElementById('dashDate').value = today;
   document.getElementById('inputDate').value = today;
@@ -709,6 +786,7 @@ async function main(){
   document.getElementById('syncModal').addEventListener('click', (e)=>{ if(e.target.id==='syncModal') e.currentTarget.classList.remove('show'); });
   document.getElementById('syncRetryBtn').addEventListener('click', persistAccounts);
   document.getElementById('settingsSaveBtn').addEventListener('click', saveSettings);
+  document.getElementById('setUserName').addEventListener('change', saveUserName);
   document.getElementById('addAccBtn').addEventListener('click', handleAddAccount);
   ['newAccName','newAccType'].forEach(id=>{
     document.getElementById(id).addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); handleAddAccount(); } });
