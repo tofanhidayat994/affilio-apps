@@ -446,6 +446,55 @@ table.hist td:nth-child(n+2){font-family:var(--font-d); font-size:.8rem; font-we
 .prow .pval{text-align:right; flex-shrink:0;} .prow .pval b{font-family:var(--font-d); font-size:.82rem; font-weight:750; white-space:nowrap;}
 .prow .pchg{font-size:.7rem; font-weight:700; margin-top:3px; min-height:14px;} .prow .up{color:var(--green);} .prow .dn{color:var(--red);}
 .prow .pchev{color:var(--muted); font-size:1.25rem; line-height:1;}
+
+/* ===== EVALUASI MINGGUAN ===== */
+.evh{align-items:center; margin:2px 0 14px;} .evh .pht div{max-width:230px; font-size:.76rem;} .evh h2{font-size:1.45rem;}
+.weeknav{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+.weeknav button{width:44px; height:44px; border-radius:16px; background:var(--surface); border:1px solid var(--line); color:var(--text); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; backdrop-filter:blur(10px);}
+.weeknav button:disabled{opacity:.3; cursor:default;}
+.weeknav button:not(:disabled):active{transform:scale(.93);}
+.weeknav .wk{flex:1; text-align:center; background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:7px 10px; backdrop-filter:blur(10px);}
+.weeknav .wkr{font-family:var(--font-d); font-weight:700; font-size:.92rem;} .weeknav .wks{font-size:.7rem; color:var(--muted); font-weight:600; min-height:14px;}
+.evhero{display:flex; align-items:center; gap:14px; padding:16px; border-radius:26px; margin-bottom:12px; border:1px solid; box-shadow:var(--shadow);}
+.evhero.good{background:linear-gradient(145deg,rgba(61,245,176,.2),rgba(34,150,230,.1)); border-color:rgba(61,245,176,.5); --rc:var(--green);}
+.evhero.mid{background:linear-gradient(145deg,rgba(255,200,61,.18),rgba(255,162,77,.08)); border-color:rgba(255,200,61,.5); --rc:#FFC83D;}
+.evhero.low{background:linear-gradient(145deg,rgba(255,92,122,.2),rgba(255,92,122,.06)); border-color:rgba(255,92,122,.5); --rc:var(--red);}
+.evhero.mute{background:var(--surface); border-color:var(--line); --rc:var(--muted);}
+.evring{position:relative; width:84px; height:84px; flex-shrink:0;} .evring svg{width:100%; height:100%; display:block;}
+.evring .rbg{fill:none; stroke:var(--surface2); stroke-width:8;} .evring .rfg{fill:none; stroke:var(--rc); stroke-width:8; stroke-linecap:round; transition:stroke-dasharray .6s ease;}
+.evring .rpc{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-weight:800; font-size:1.05rem;}
+.evvt{min-width:0;} .evvl{font-family:var(--font-d); font-size:1.15rem; font-weight:800; color:var(--rc);} .evvs{font-size:.78rem; line-height:1.35; margin:3px 0 5px;} .evvg{font-size:.7rem; color:var(--muted); font-weight:600;}
+.evstats{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;}
+.evst{background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:12px; box-shadow:var(--shadow); backdrop-filter:blur(12px); min-width:0;}
+.evsh{display:flex; align-items:center; gap:8px; font-size:.74rem; font-weight:650; color:var(--muted);}
+.evsi{width:26px; height:26px; border-radius:9px; display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0;}
+.evsi.c{background:linear-gradient(145deg,#25D69A,#0FAE7C);} .evsi.p{background:linear-gradient(145deg,#8B6BFF,#4D6BFF);} .evsi.a{background:linear-gradient(145deg,#4D8DFF,#2D5BE8);} .evsi.r{background:linear-gradient(145deg,#FFA24D,#FF6F7E);}
+.evsv{font-family:var(--font-d); font-size:clamp(1rem,5vw,1.2rem); font-weight:750; letter-spacing:-.03em; margin:8px 0 3px; white-space:nowrap;} .evsv small{font-size:.75rem; color:var(--muted); font-weight:600;}
+.evsc{font-size:.68rem; font-weight:700; line-height:1.3;} .evsc span{color:var(--muted); font-weight:500;}
+.up{color:var(--green);} .dn{color:var(--red);} .flat{color:var(--muted);}
+.evcard{background:var(--surface); border:1px solid var(--line); border-radius:24px; padding:14px; margin-bottom:12px; box-shadow:var(--shadow); backdrop-filter:blur(12px);}
+.evcard h3{margin:0 0 12px; font-family:var(--font-d); font-size:.95rem; font-weight:700;}
+.evdays{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; align-items:end;}
+.evd{display:flex; flex-direction:column; align-items:center; gap:4px; min-width:0;}
+.evdv{font-size:.6rem; color:var(--muted); font-weight:650; height:14px; white-space:nowrap;}
+.evdt{width:100%; height:110px; display:flex; align-items:flex-end; justify-content:center; border-radius:12px; background:var(--surface2);}
+.evdf{width:100%; border-radius:12px; background:linear-gradient(180deg,#22E3FF,#7C5CFF);} .evdf.z{height:0 !important;}
+.evd.best .evdf{background:linear-gradient(180deg,#3DF5B0,#22E3FF); box-shadow:0 0 14px rgba(61,245,176,.5);} .evd.best .evdv{color:var(--green);}
+.evd.fut{opacity:.4;}
+.evdn{font-size:.7rem; font-weight:700;} .evdp{font-size:.62rem; color:var(--muted); height:12px;}
+.evacc{display:flex; align-items:center; gap:11px; padding:10px 0; border-top:1px solid var(--line);} .evacc:first-of-type{border-top:none; padding-top:0;}
+.evacc .ico{width:42px; height:42px; border-radius:14px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:#fff;}
+.evacc .eam{flex:1; min-width:0;} .eat{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:6px;}
+.ean{font-family:var(--font-d); font-size:.8rem; font-weight:700;}
+.tag{font-size:.6rem; font-weight:750; padding:2px 8px; border-radius:10px;} .tag.good{background:rgba(61,245,176,.2); color:var(--green);} .tag.low{background:rgba(255,92,122,.2); color:var(--red);}
+.eab{height:7px; border-radius:7px; background:var(--surface2); overflow:hidden;} .eab i{display:block; height:100%; border-radius:7px;}
+.eas{font-size:.66rem; color:var(--muted); margin-top:5px;}
+.eav{text-align:right; flex-shrink:0;} .eav b{font-family:var(--font-d); font-size:.8rem; font-weight:750; white-space:nowrap;} .eav div{font-size:.68rem; font-weight:700; margin-top:3px;}
+.evi{display:flex; gap:10px; align-items:flex-start; font-size:.8rem; line-height:1.4; padding:8px 0;} .evi + .evi{border-top:1px solid var(--line);}
+.evid{width:8px; height:8px; border-radius:50%; margin-top:6px; flex-shrink:0; background:var(--muted);} .evi.good .evid{background:var(--green);} .evi.warn .evid{background:#FFC83D;} .evi.info .evid{background:var(--blue);}
+.evfoot{font-size:.66rem; color:var(--muted); margin-top:8px;}
+.evl{display:block; font-size:.78rem; font-weight:650; margin:10px 0 6px;} .evl:first-of-type{margin-top:0;}
+.evcard .ibox textarea{min-height:74px;}
 </style>
 </head>
 <body>
@@ -455,6 +504,7 @@ table.hist td:nth-child(n+2){font-family:var(--font-d); font-size:.8rem; font-we
   <div class="topleft" id="pageBox" style="display:none"><h1 id="topTitle">Dashboard</h1></div>
   <div class="right">
     <button class="dlbtn" id="dlBtn" aria-label="Tarik data ke Excel" title="Tarik data ke Excel"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg></button>
+    <button class="gear" id="akunBtn" aria-label="Akun dan pengaturan" title="Akun dan pengaturan"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg></button>
     <button class="syncbtn" id="syncBtn"><span class="ic">🔄</span><span class="badge" id="syncBadge">0</span></button>
   </div>
 </div>
@@ -578,6 +628,20 @@ table.hist td:nth-child(n+2){font-family:var(--font-d); font-size:.8rem; font-we
     <div class="ach perfh"><span class="sli"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12 20 4"/></svg></span><h3>Performa Setiap Akun</h3><span class="seeall nob" id="anPerfPill">Komisi 30 Hari</span></div>
     <div id="anPerf"></div>
   </div>
+
+  <!-- EVALUASI MINGGUAN -->
+  <div class="view" id="view-evaluasi">
+    <div class="phead evh">
+      <span class="phi"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="3"/><path d="M9 4.5h6M9 13l2.2 2.2L15.5 10.5"/></svg></span>
+      <div class="pht"><h2>Evaluasi Mingguan</h2><div>Lihat hasil minggu ini dan rencanakan minggu depan</div></div>
+    </div>
+    <div class="weeknav">
+      <button id="evPrev" aria-label="Minggu sebelumnya"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+      <div class="wk"><div class="wkr" id="evRange">-</div><div class="wks" id="evState">-</div></div>
+      <button id="evNext" aria-label="Minggu berikutnya"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+    </div>
+    <div id="evBody"><div class="hload">Memuat...</div></div>
+  </div>
 </main>
 
 <!-- DETAIL AKUN MODAL -->
@@ -662,7 +726,7 @@ table.hist td:nth-child(n+2){font-family:var(--font-d); font-size:.8rem; font-we
   <button data-tab="riwayat"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Riwayat</button>
   <button class="fab" data-tab="input" aria-label="Input laporan harian"><span class="fabc"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></button>
   <button data-tab="analitik"><svg viewBox="0 0 24 24"><path d="M5 20V12M12 20V5M19 20v-5"/></svg>Analitik</button>
-  <button data-action="akun"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4"/></svg>Akun</button>
+  <button data-tab="evaluasi"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="3"/><path d="M9 4.5h6M9 13l2.2 2.2L15.5 10.5"/></svg>Evaluasi</button>
 </div>
 
 <script>
@@ -711,6 +775,12 @@ async function setEntry(date,accId,posts,commission,note){
   const data={date,accountId:accId,posts,commission,note:note||''};
   try{ localStorage.setItem(lsKey(date,accId), JSON.stringify(data)); return true; }
   catch(e){ return false; }
+}
+async function getWeekNote(week){
+  try{ const raw=localStorage.getItem('affilio_week_'+week); return raw?JSON.parse(raw):{good:'',plan:''}; }catch(e){ return {good:'',plan:''}; }
+}
+async function setWeekNote(week,good,plan){
+  try{ localStorage.setItem('affilio_week_'+week, JSON.stringify({week,good:good||'',plan:plan||''})); return true; }catch(e){ return false; }
 }
 async function totalsForDate(date){
   let posts=0,commission=0;
@@ -1101,6 +1171,100 @@ async function renderAnalitik(){
   });
 }
 
+// ---------- EVALUASI MINGGUAN ----------
+const DAYS_S=['Sen','Sel','Rab','Kam','Jum','Sab','Min'], DAYS_L=['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'];
+const MON_S=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+function mondayOf(date){ const d=new Date(date+'T00:00:00'); return todayStr(addDays(date,-((d.getDay()+6)%7))); }
+let evWeek = null, evSeq = 0, evSaveTimer = null;
+const ic=(d,w=18,sw=1.9)=>`<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const EV_COIN='<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>', EV_PLANE='<path d="M21 3 3 10.5l6.5 2.5L12 20z"/><path d="M9.5 13 21 3"/>', EV_CAL='<rect x="4" y="5" width="16" height="15" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/>';
+function evRangeText(m){ const a=new Date(m+'T00:00:00'), b=addDays(m,6); const sameM=a.getMonth()===b.getMonth(); return a.getDate()+(sameM?'':' '+MON_S[a.getMonth()])+' – '+b.getDate()+' '+MON_S[b.getMonth()]+' '+b.getFullYear(); }
+function evPct(cur,prev){ if(!prev) return cur>0?'<span class="up">▲ baru</span>':'<span class="flat">–</span>'; const pc=Math.round((cur-prev)/prev*100); return pc>=0?`<span class="up">▲ ${pc}%</span>`:`<span class="dn">▼ ${Math.abs(pc)}%</span>`; }
+async function renderEvaluasi(){
+  const seq=++evSeq, thisMon=mondayOf(todayStr());
+  if(!evWeek) evWeek=thisMon;
+  const isCur = evWeek===thisMon;
+  document.getElementById('evRange').textContent=evRangeText(evWeek);
+  document.getElementById('evState').textContent = isCur ? 'Minggu ini (berjalan)' : (evWeek<thisMon ? Math.round((new Date(thisMon)-new Date(evWeek))/6048e5)+' minggu lalu' : '');
+  document.getElementById('evNext').disabled = evWeek>=thisMon;
+  const body=document.getElementById('evBody');
+  if(accounts.length===0){ body.innerHTML='<div class="empty"><span class="em">🧾</span>Belum ada akun.<br>Tambahkan lewat ikon Akun di pojok kanan atas.</div>'; return; }
+  body.innerHTML='<div class="hload">Memuat...</div>';
+  const days=[...Array(7)].map((_,i)=>todayStr(addDays(evWeek,i)));
+  const pdays=[...Array(7)].map((_,i)=>todayStr(addDays(evWeek,i-7)));
+  const all=[...pdays,...days], data={};
+  try{
+    for(let i=0;i<all.length;i+=7){
+      await Promise.all(all.slice(i,i+7).map(async d=>{ data[d]=await Promise.all(accounts.map(a=>getEntry(d,a.id,true))); }));
+    }
+  }catch(e){ if(seq===evSeq) body.innerHTML='<div class="hload">Gagal memuat data. Periksa koneksi lalu buka menu ini lagi.</div>'; return; }
+  if(seq!==evSeq) return;
+  const today=todayStr();
+  const dayTot=(d)=>({posts:data[d].reduce((s,e)=>s+(e.posts||0),0), comm:data[d].reduce((s,e)=>s+(e.commission||0),0)});
+  const elapsed = isCur ? ((new Date(today+'T00:00:00').getDay()+6)%7)+1 : 7;
+  const cmpDays = pdays.slice(0,elapsed); // minggu berjalan dibandingkan dengan hari yang sama di minggu lalu
+  const cur=days.map(dayTot), prv=cmpDays.map(dayTot);
+  const sum=(arr,k)=>arr.reduce((s,x)=>s+x[k],0);
+  const tP=sum(cur,'posts'), tC=sum(cur,'comm'), pP=sum(prv,'posts'), pC=sum(prv,'comm');
+  const active=cur.filter(x=>x.posts>0||x.comm>0).length;
+  const tgtC = targets.commission*elapsed, tgtP = targets.posts*elapsed;
+  const pctC = tgtC>0 ? Math.round(tC/tgtC*100) : 0, pctP = tgtP>0 ? Math.round(tP/tgtP*100) : 0;
+  const empty = tP===0 && tC===0;
+  const verdict = empty ? ['Belum ada data','mute','Isi menu Input agar minggu ini bisa dievaluasi.'] : pctC>=100 ? ['Target tercapai','good','Komisi minggu ini melampaui target. Pertahankan ritmenya.'] : pctC>=70 ? ['Hampir sampai','mid','Komisi sudah mendekati target. Dorong di hari-hari yang tersisa.'] : ['Di bawah target','low','Komisi masih jauh dari target. Cek akun dan hari yang paling lemah di bawah.'];
+  const R=34, C=2*Math.PI*R, dash=C*Math.min(100,pctC)/100;
+  let bi=-1, bm=0; cur.forEach((x,i)=>{ if(x.comm>bm){bm=x.comm; bi=i;} });
+  const mxd=Math.max(1,...cur.map(x=>x.comm));
+  const dayBars=cur.map((x,i)=>{
+    const d=days[i], fut=d>today, has=x.posts>0||x.comm>0;
+    return `<div class="evd${i===bi?' best':''}${fut?' fut':''}"><div class="evdv">${has?(x.comm>=1e6?(x.comm/1e6).toFixed(1).replace('.',',')+'jt':x.comm>=1000?Math.round(x.comm/1000)+'rb':x.comm):''}</div><div class="evdt"><div class="evdf${has?'':' z'}" style="height:${has?Math.max(6,Math.round(x.comm/mxd*100)):0}%"></div></div><div class="evdn">${DAYS_S[i]}</div><div class="evdp">${has?x.posts+'p':fut?'':'–'}</div></div>`;
+  }).join('');
+  // per akun
+  const rows=accounts.map((a,j)=>{
+    const c=days.reduce((s,d)=>s+(data[d][j].commission||0),0), p=days.reduce((s,d)=>s+(data[d][j].posts||0),0);
+    const pc=cmpDays.reduce((s,d)=>s+(data[d][j].commission||0),0);
+    return {a,c,p,pc,eff:p>0?c/p:0};
+  }).sort((x,y)=>y.c-x.c);
+  const mxa=Math.max(1,...rows.map(r=>r.c));
+  const worst=rows.filter(r=>r.pc>0 && (r.c-r.pc)/r.pc<=-0.2).sort((x,y)=>(x.c-x.pc)/x.pc-(y.c-y.pc)/y.pc)[0];
+  const accHtml=rows.map((r,k)=>`<div class="evacc${k===0&&r.c>0?' top':''}">${iconHtml(r.a)}<div class="eam"><div class="eat"><span class="ean">${escHtml(r.a.name)}</span>${k===0&&r.c>0?'<span class="tag good">Terbaik</span>':''}${worst&&worst.a.id===r.a.id?'<span class="tag low">Perlu perhatian</span>':''}</div><div class="eab"><i style="width:${r.c>0?Math.max(4,Math.round(r.c/mxa*100)):0}%;background:${barColor(r.a)}"></i></div><div class="eas">${r.p} posting${r.p>0?' · '+fmtRp(r.eff)+'/posting':''}</div></div><div class="eav"><b>${fmtRp(r.c)}</b><div>${evPct(r.c,r.pc)}</div></div></div>`).join('');
+  // insight
+  const ins=[];
+  if(!empty){
+    if(bi>=0) ins.push(['good',`Hari terbaik: <b>${DAYS_L[bi]}</b> dengan ${fmtRp(bm)}.`]);
+    const missed=days.map((d,i)=>({d,i})).filter(o=>o.d<=today && !(cur[o.i].posts>0||cur[o.i].comm>0)).map(o=>DAYS_S[o.i]);
+    if(missed.length) ins.push(['warn',`<b>${missed.length} hari tanpa input</b> (${missed.join(', ')}). Data yang kosong membuat evaluasi kurang akurat.`]);
+    if(tP>0 && pP>0){ const e1=tC/tP, e0=pC/pP, d=Math.round((e1-e0)/Math.max(1,e0)*100); if(Math.abs(d)>=10) ins.push([d>0?'good':'warn',`Komisi per posting <b>${fmtRp(e1)}</b>, ${d>0?'naik':'turun'} ${Math.abs(d)}% dari periode yang sama minggu lalu${d>0?'.':'. Cek apakah produk atau konten yang dipromosikan berubah.'}`]); }
+    if(worst) ins.push(['warn',`<b>${escHtml(worst.a.name)}</b> turun ${Math.abs(Math.round((worst.c-worst.pc)/worst.pc*100))}% dibanding minggu lalu.`]);
+    if(pP===0&&pC===0) ins.push(['info','Belum ada data pembanding dari minggu sebelumnya, jadi persen belum tersedia.']);
+    if(tC>0 && tP===0) ins.push(['info','Ada komisi tapi posting tercatat 0. Pastikan jumlah posting ikut diisi.']);
+  }
+  const insHtml = ins.length ? ins.map(([k,t])=>`<div class="evi ${k}"><span class="evid"></span><div>${t}</div></div>`).join('') : '<div class="hload" style="padding:14px 0">Belum ada insight untuk minggu ini.</div>';
+  const cmpLbl = isCur && elapsed<7 ? 'vs '+DAYS_S[0]+(elapsed>1?'–'+DAYS_S[elapsed-1]:'')+' lalu' : 'vs minggu lalu';
+  const note=await getWeekNote(evWeek);
+  if(seq!==evSeq) return;
+  body.innerHTML=`
+    <div class="evhero ${verdict[1]}">
+      <div class="evring"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="${R}" class="rbg"/><circle cx="40" cy="40" r="${R}" class="rfg" stroke-dasharray="${dash} ${C}" transform="rotate(-90 40 40)"/></svg><div class="rpc">${empty?'–':Math.min(999,pctC)+'%'}</div></div>
+      <div class="evvt"><div class="evvl">${verdict[0]}</div><div class="evvs">${verdict[2]}</div><div class="evvg">Target komisi ${isCur&&elapsed<7?elapsed+' hari':'7 hari'}: ${fmtRp(tgtC)}</div></div>
+    </div>
+    <div class="evstats">
+      <div class="evst"><div class="evsh"><span class="evsi c">${ic(EV_COIN,16,2)}</span>Komisi</div><div class="evsv">${fmtRp(tC)}</div><div class="evsc">${evPct(tC,pC)} <span>${cmpLbl}</span></div></div>
+      <div class="evst"><div class="evsh"><span class="evsi p">${ic(EV_PLANE,16,2)}</span>Posting</div><div class="evsv">${tP}</div><div class="evsc">${evPct(tP,pP)} <span>${cmpLbl}</span></div></div>
+      <div class="evst"><div class="evsh"><span class="evsi a">${ic(EV_CAL,16,2)}</span>Hari aktif</div><div class="evsv">${active}<small>/${isCur?elapsed:7}</small></div><div class="evsc"><span>hari ada input</span></div></div>
+      <div class="evst"><div class="evsh"><span class="evsi r">${ic('<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',16,2)}</span>Rata-rata</div><div class="evsv">${fmtRp(active?tC/active:0)}</div><div class="evsc"><span>per hari aktif · posting ${pctP}% target</span></div></div>
+    </div>
+    <div class="evcard"><h3>Komisi per hari</h3><div class="evdays">${dayBars}</div></div>
+    <div class="evcard"><h3>Performa akun</h3>${accHtml}</div>
+    <div class="evcard"><h3>Catatan otomatis</h3>${insHtml}<div class="evfoot">Dihitung dari data input dan target harian × jumlah hari.</div></div>
+    <div class="evcard"><h3>Refleksi kamu</h3>
+      <label class="evl" for="evGood">Yang berhasil minggu ini</label><div class="ibox"><textarea id="evGood" maxlength="300" placeholder="Contoh: video review produk X ramai ditonton...">${escHtml(note.good||'')}</textarea></div>
+      <label class="evl" for="evPlan">Rencana minggu depan</label><div class="ibox"><textarea id="evPlan" maxlength="300" placeholder="Contoh: tambah 2 posting per hari di akun RAR STOREE...">${escHtml(note.plan||'')}</textarea></div>
+      <div class="savemsg" id="evMsg"></div>
+    </div>`;
+  const save=()=>{ clearTimeout(evSaveTimer); const wk=evWeek, g=document.getElementById('evGood').value, pl=document.getElementById('evPlan').value; document.getElementById('evMsg').textContent='Menyimpan...'; evSaveTimer=setTimeout(async()=>{ const ok=await setWeekNote(wk,g,pl); const m=document.getElementById('evMsg'); if(m) m.textContent= ok?'Tersimpan otomatis':'Gagal menyimpan, coba lagi'; },700); };
+  document.getElementById('evGood').addEventListener('input',save); document.getElementById('evPlan').addEventListener('input',save);
+}
+
 // ---------- SETTINGS ----------
 function newId(){ return 'acc_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
 let pendingQueue = []; // [{id,name}] accounts not yet confirmed saved
@@ -1402,7 +1566,7 @@ async function saveUserName(){
   updateTopbar();
   await persistAccounts();
 }
-const titles = {dashboard:'Dashboard', input:'Input Harian', riwayat:'Riwayat', analitik:'Analitik'};
+const titles = {dashboard:'Dashboard', input:'Input Harian', riwayat:'Riwayat', analitik:'Analitik', evaluasi:'Evaluasi Mingguan'};
 async function switchTab(tab){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-'+tab).classList.add('active');
@@ -1413,6 +1577,7 @@ async function switchTab(tab){
   if(tab==='input'){ if(!selectedAccId && accounts.length>0) selectedAccId=accounts[0].id; renderInputAccGrid(); await loadInputFields(); }
   if(tab==='riwayat') await renderRiwayat();
   if(tab==='analitik') await renderAnalitik();
+  if(tab==='evaluasi') await renderEvaluasi();
 }
 
 async function main(){
@@ -1426,6 +1591,7 @@ async function main(){
   document.getElementById('inputDate').value = today;
 
   document.querySelectorAll('.bottomnav button').forEach(b=>b.addEventListener('click', ()=>{ if(b.dataset.action==='akun'){ renderSettings(); document.getElementById('settingsModal').classList.add('show'); } else switchTab(b.dataset.tab); }));
+  document.getElementById('akunBtn').addEventListener('click', ()=>{ renderSettings(); document.getElementById('settingsModal').classList.add('show'); });
   document.getElementById('seeAllBtn').addEventListener('click', ()=>switchTab('analitik'));
   document.getElementById('dashDate').addEventListener('change', renderDashboard);
   document.getElementById('inputDate').addEventListener('change', loadInputFields);
@@ -1446,6 +1612,8 @@ async function main(){
     const r=e.target.closest('.hrow.go'); if(!r) return;
     document.getElementById('dashDate').value=r.dataset.date; await switchTab('dashboard');
   });
+  document.getElementById('evPrev').addEventListener('click', async ()=>{ evWeek=todayStr(addDays(evWeek||mondayOf(todayStr()),-7)); await renderEvaluasi(); });
+  document.getElementById('evNext').addEventListener('click', async ()=>{ const n=todayStr(addDays(evWeek,7)); if(n<=mondayOf(todayStr())){ evWeek=n; await renderEvaluasi(); } });
   document.getElementById('anDate').addEventListener('change', async ()=>{ anSel=-1; await renderAnalitik(); });
   document.getElementById('anChart').addEventListener('click', (e)=>{ const c=e.target.closest('.cb'); if(!c) return; anSel=parseInt(c.dataset.i,10); drawAnChart(); });
   document.getElementById('anDetailBtn').addEventListener('click', ()=>switchTab('riwayat'));
